@@ -1,0 +1,43 @@
+﻿@model List<RWebService.Script>
+
+@{
+    ViewData["Title"] = "R Web Service";
+}
+<style>
+    .col1, .col2 {
+        padding-right: 20px;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+    .top-aligned {
+        vertical-align: top;
+    }
+</style>
+
+<h2>@ViewData["Title"]</h2>
+
+<p>R Web Service is a Web API, allowing to execute R scripts remotely.</p>
+<p>Download the latest source code from GitHub.</p>
+
+<h3>Configured scripts</h3>
+
+@if (Model.Count > 0)
+{
+    <table>
+        <thead><tr><th>Route</th><th>Script</th><th>Description</th></tr></thead>
+        <tbody>
+            @foreach (RWebService.Script script in Model)
+            {
+            <tr>
+                <td class="col1"><a href="@Url.Action("Index", "Home", null, "http")@script.Route">@script.Route</a></td>
+                <td class="col2">@script.Name</td>
+                <td class="top-aligned">@Html.Raw(script.Description)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No scripts</p>
+}
